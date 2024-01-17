@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Book List</h2>
+    
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Categories</h4>
+            <ul class="list-group">
+                {% for category in categories %}
+                  
+                   <li class="list-group-item"><a href="{% url 'category_wise_post' category.slug %}">{{ category.Name }}</a></li>
+
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="row">
+                {% for book in data %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ book.image.url }}" class="card-img-top" alt="{{ book.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text">{{ book.description |truncatewords:10 }}</p>
+
+                                <p class="card-text"><strong>Price:</strong> {{ book.borrowing_price }}$</p>
+                                {% for category in book.category.all %}
+                                    <h3 class="bg-warning text-primary">{{ category.Name }}</h3>
+                                {% endfor %}
+
+
+
+                                <a href="{% url 'details_view' pk=book.id %}" class="btn btn-primary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Your Borrowed Books:</h1>
+<table class="table mt-6">
+    <thead>
+        <tr>
+            <th scope="col">Book ID</th>
+            <th scope="col">Book Title</th>
+            <th scope="col">Borrowing Date</th>
+            <th scope="col">Return Book</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for borrowed_book in borrowed_books %}
+            <tr>
+                <td>{{ borrowed_book.book.id }}</td>
+                <td>{{ borrowed_book.book.title }}</td>
+                <td>{{ borrowed_book.date }}</td>
+                <td><a href="{% url 'return_book' book_id=borrowed_book.book.id %}">Return</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
