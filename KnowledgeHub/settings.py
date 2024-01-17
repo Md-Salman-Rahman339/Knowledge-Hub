@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-@b34*@0&r@h^63d591%ld3uz8w=t%6#uqmix%*_8j_#($--h&g
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-# CSRF_TRUSTED_ORIGINS = ['https://library4-z787.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://knowledgehub-qmlb.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
